@@ -9,7 +9,7 @@ var client = new Twitter(keyFile.twitterKeys);
 
 // function myTweets(){
 
-	var params = {screen_name: 'emilyturner88'};
+	var params = {screen_name: 'emilyturner88', count: 20};
     client.get('statuses/user_timeline', params, function(error, tweets, response) {
           if(error) {
             console.log(error);
@@ -18,6 +18,7 @@ var client = new Twitter(keyFile.twitterKeys);
           }
           for (var i = 0; i < tweets.length; i++) {
 		   	console.log(tweets[i].text);
+		   	console.log(tweets[i].created_at);
 }
 });
           
