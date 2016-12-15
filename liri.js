@@ -4,6 +4,8 @@ var Twitter = require('twitter');
 
 var spotify = require('spotify');
 
+var request = require('request');
+
 var tweets = ''; //empty string to hold the tweets
 
 var liriSwitch;
@@ -29,26 +31,52 @@ var client = new Twitter(keyFile.twitterKeys);
 // myTweets();
 
 //Spotify
-function spotifySong() {
-var songName = process.argv[3];
-	if (songName === '');
-		songName = 'The Sign';
-// var queryLimit = 1;
-spotify.search({type: 'track', query: songName}, function(err, data) {
-    if (err) {
-        console.log('Error occurred: ' + err);
-        return;
-    } else {
-    	console.log("The song name is: " + data.tracks.items[0].name);
-    	console.log("The artist is: " + data.tracks.items[0].artists[0].name);
-    	console.log("The album is: " + data.tracks.items[0].album.name); 
-    	console.log("Preview link of song: " + data.tracks.items[0].preview_url);
-    	//'data' is coming from the function on line 34
-    }
-});
-// tracks.items[0].artists)
+// function spotifySong() {
+// var songName = process.argv[3]; //user has to type in song name
+// 	if (songName === '');
+// 		songName = 'The Sign';
+
+// spotify.search({type: 'track', query: songName}, function(err, data) {
+//     if (err) {
+//         console.log('Error occurred: ' + err);
+//         return;
+//     } else {
+//     	console.log("The song name is: " + data.tracks.items[0].name);
+//     	console.log("The artist is: " + data.tracks.items[0].artists[0].name);
+//     	console.log("The album is: " + data.tracks.items[0].album.name); 
+//     	console.log("Preview link of song: " + data.tracks.items[0].preview_url);
+//     	//'data' is coming from the function on line 34
+//     }
+// });
+
+// }
+// spotifySong();
+
+//Movies/OMDB
+function movieThis(){
+var movieName = process.argv[3]; //user has to type in movie name
+	if (movieName === '');
+		movieName = 'Mr. Nobody';
+
+request('http://www.omdbapi.com/?t=' + movieName + '&y=&plot=short&r=json&tomatoes=true', function (error, response, body){
+	if (!error && response.statusCode == 200){
+	}
+		var movies = JSON.parse(body);
+		console.log("Title: " + movies.Title);
+		console.log("Year: " + movies.Year);
+		console.log("IMDB Rating: " + movies.imdbRating);
+		console.log("Country: " + movies.Country);
+		console.log("Language: " + movies.Language);
+		console.log("Plot: " + movies.Plot);
+		console.log("Actors: " + movies.Actors);
+		console.log("Rotten Tomato Rating: " + movies.tomatoUserRating);
+		console.log("Rotton Tomato Link: " + movies.tomatoURL);
+	}
+);
+
 }
-spotifySong();
+movieThis();
+
 
 switch (liriSwitch) {
 	case 'my-tweets':
@@ -57,6 +85,10 @@ switch (liriSwitch) {
 
 	case 'spotify-this-song':
 	spotifySong();
+	break;
+
+	case 'movie-this':
+	movieThis();
 	break;
 }
 		
