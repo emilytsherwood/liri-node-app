@@ -40,6 +40,7 @@ spotify.search({type: 'track', query: songName}, function(err, data) {
     	console.log("The song name is: " + data.tracks.items[0].name);
     	console.log("The artist is: " + data.tracks.items[0].artists[0].name);
     	console.log("The album is: " + data.tracks.items[0].album.name); 
+    	console.log("Preview link of song: " + data.tracks.items[0].preview_url);
     	//'data' is coming from the function on line 34
     }
 });
