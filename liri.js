@@ -4,36 +4,35 @@ var Twitter = require('twitter');
 
 var spotify = require('spotify');
 
+var tweets = ''; //empty string to hold the tweets
+
 var liriSwitch;
 
 //Grabbing the API keys from the keys.js file
 var client = new Twitter(keyFile.twitterKeys);
 
 //Function that displays the last 20 tweets of mine
-function myTweets(){
-	var params = {screen_name: 'emilyturner88', count: 20};
-    client.get('statuses/user_timeline', params, function(error, tweets, response) {
-          if(error) {
-            console.log(error);
-          } else {
-          	console.log(tweets);
-          }
-          for (var i = 0; i < tweets.length; i++) {
-		   	console.log(tweets[i].text);
-		   	console.log(tweets[i].created_at);
-}
-});
-}
-myTweets();
+// function myTweets(){
+// 	var params = {screen_name: 'emilyturner88', count: 20};
+//     client.get('statuses/user_timeline', params, function(error, tweets, response) {
+//           if(error) {
+//             console.log(error);
+//           } else {
+//           	console.log(tweets);
+//           }
+//           for (var i = 0; i < tweets.length; i++) {
+// 		   	console.log(tweets[i].text);
+// 		   	console.log(tweets[i].created_at);
+// }
+// });
+// }
+// myTweets();
 
-// Spotify
+//Spotify
 function spotifySong() {
 var songName = process.argv[3];
- //If no song is provided then your program will default to...
-    if (songName === '')
-    	songName = "The Sign";
-    	//'data' is coming from the function on line 34
-    }
+	if (songName === '');
+		songName = 'The Sign';
 // var queryLimit = 1;
 spotify.search({type: 'track', query: songName}, function(err, data) {
     if (err) {
@@ -44,9 +43,6 @@ spotify.search({type: 'track', query: songName}, function(err, data) {
     	console.log("The artist is: " + data.tracks.items[0].artists[0].name);
     	console.log("The album is: " + data.tracks.items[0].album.name); 
     	console.log("Preview link of song: " + data.tracks.items[0].preview_url);
-    //If no song is provided then your program will default to...
-    if (songName === '')
-    	songName = "The Sign";
     	//'data' is coming from the function on line 34
     }
 });
@@ -63,5 +59,4 @@ switch (liriSwitch) {
 	spotifySong();
 	break;
 }
-		  
 		
