@@ -34,15 +34,14 @@ function myTweets() {
     });
 }
 
-
 //Spotify
 var songName = process.argv[3];
 function spotifySong(songName) {
 var songSpotify = process.argv[3];
      //user has to type in song name
      var song = songSpotify;
-    if (songName === ''){
-    songSpotify = 'The Sign';
+    if (song === ''){
+    song = 'The Sign';
 }
     spotify.search({
         type: 'track',
