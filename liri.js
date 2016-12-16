@@ -6,6 +6,8 @@ var spotify = require('spotify');
 
 var request = require('request');
 
+var fs = require('fs');
+
 var tweets = ''; //empty string to hold the tweets
 
 var liriSwitch = process.argv[2];
@@ -34,14 +36,17 @@ function myTweets() {
 
 
 //Spotify
-function spotifySong() {
-    var songName = process.argv[3]; //user has to type in song name
-    // if (songName === '');
-    // songName = 'The Sign';
-
+var songName = process.argv[3];
+function spotifySong(songName) {
+var songSpotify = process.argv[3];
+     //user has to type in song name
+     var song = songSpotify;
+    if (songName === ''){
+    songSpotify = 'The Sign';
+}
     spotify.search({
         type: 'track',
-        query: songName
+        query: song
     }, function(err, data) {
         if (err) {
             console.log('Error occurred: ' + err);
@@ -54,7 +59,6 @@ function spotifySong() {
             //'data' is coming from the function on line 34
         }
     });
-
 }
 
 //Movies/OMDB
@@ -79,7 +83,13 @@ function movieThis() {
        });
     }    
 
-
+function doSays() {
+	fs.readFile('random.txt', 'utf8', function(err, data){
+		console.log(data);
+	var dataArr = data.split(',');
+	spotifySong(dataArr[1]);
+	});
+}
 
 
 switch (liriSwitch) {
@@ -94,5 +104,10 @@ switch (liriSwitch) {
     case 'movie-this':
         movieThis();
         break;
+
+    case 'do-what-it-says':
+    	doSays();
+    	break;
+
 }
 		
