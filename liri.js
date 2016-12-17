@@ -36,11 +36,13 @@ function myTweets() {
 
 //Spotify
 var songName = process.argv[3];
+console.log(songName);
 function spotifySong(songName) {
-var songSpotify = process.argv[3];
+// var songSpotify = process.argv[3];
      //user has to type in song name
-     var song = songSpotify;
-    if (song === ''){
+     var song = songName;
+     console.log(song);
+    if (song === undefined){
     song = 'The Sign';
 }
     spotify.search({
@@ -97,7 +99,7 @@ switch (liriSwitch) {
         break;
 
     case 'spotify-this-song':
-        spotifySong();
+        spotifySong(songName);
         break;
 
     case 'movie-this':
